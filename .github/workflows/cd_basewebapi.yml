@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - BaseWebApi/**
+      - .github/workflows/cd_basewebapi**
 
 jobs:
   build:
