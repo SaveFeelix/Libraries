@@ -16,6 +16,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: [ Debug, Release ]
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET Core
@@ -33,5 +36,5 @@ jobs:
       - name: Restore project
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore
-      - name: Build project
-        run: dotnet build BaseWebApi/BaseWebApi.csproj
+      - name: Build project (${{ matrix.config }})
+        run: dotnet build BaseWebApi/BaseWebApi.csproj --configuration ${{ matrix.config }}
