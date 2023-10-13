@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - BaseWebApi/**
+      - .github/workflows/cd_basewebapi**
 
 jobs:
   build:
@@ -36,4 +37,4 @@ jobs:
       - name: List Packages
         run: ls -la ./artifacts
       - name: Push
-        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate
+        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate --api-key "${{ secrets.REPO_API_KEY }}"

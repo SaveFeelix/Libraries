@@ -7,11 +7,13 @@ on:
       - main
     paths:
       - BaseWebApi/**
+      - .github/workflows/ci_basewebapi**
   push:
     branches:
       - development
     paths:
       - BaseWebApi/**
+      - .github/workflows/ci_basewebapi**
 
 jobs:
   build:
