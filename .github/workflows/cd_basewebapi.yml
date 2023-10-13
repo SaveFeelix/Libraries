@@ -30,11 +30,9 @@ jobs:
         run: dotnet restore BaseWebApi/BaseWebApi.csproj
       - name: Build
         run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
-      - name: Add Nuget Source
-        run: dotnet nuget add source "https://repo.saveapis.com/repository/nuget-public/" --name "SaveApis" --username "${{ secrets.REPO_USER }}" --password "${{ secrets.REPO_PASSWORD }}" --store-password-in-clear-text
       - name: Pack
-        run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifacts
-      - name: List Packages
-        run: ls -la ./artifacts
-      - name: Push
-        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate --api-key "${{ secrets.REPO_API_KEY }}"
+        run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifact --no-build
+      - name: Setup Nuget
+        uses: NuGet/setup-nuget@v1.0.5
+      - name: Publish
+        run: nuget push ./artifact/*.nupkg -Source 'https://repo.saveapis.com/repository/nuget-public/' -ApiKey ${{ secrets.REPO_API_KEY }}
