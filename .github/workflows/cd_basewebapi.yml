@@ -41,6 +41,4 @@ jobs:
           password: ${{ secrets.REPO_PASSWORD }}
           format: nuget
           repository: nuget-public
-          coordinates: version=1.0.0
-          assets: extension=nupkg
           filename: ./artifact/*.nupkg
