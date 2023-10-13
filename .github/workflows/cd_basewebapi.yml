@@ -32,10 +32,15 @@ jobs:
         run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
       - name: Pack
         run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifact --no-build
-      - name: Setup Nuget
-        uses: NuGet/setup-nuget@v1.0.5
-      - name: Add Source
-        run: nuget sources add -name 'SaveApis' -Source 'https://repo.saveapis.com/repository/nuget-public/' -Username ${{ secrets.REPO_USERNAME }} -Password ${{ secrets.REPO_PASSWORD }}
 
       - name: Publish
-        run: nuget push ./artifact/*.nupkg -Source 'SaveApis' -ApiKey ${{ secrets.REPO_API_KEY }}
+        uses: sonatype-nexus-community/nexus-repo-github-action@master
+        with:
+          serverUrl: https://repo.saveapis.com/
+          username: ${{ secrets.REPO_USERNAME }}
+          password: ${{ secrets.REPO_PASSWORD }}
+          format: nuget
+          repository: nuget-public
+          coordinates: version=1.0.0
+          assets: extension=nupkg
+          filename: ./artifact/*.nupkg
