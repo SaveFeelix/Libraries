@@ -24,10 +24,16 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+      - name: Restore
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: dotnet restore BaseWebApi/BaseWebApi.csproj
+      - name: Build
+        run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
       - name: Add Nuget Source
         run: dotnet nuget add source "https://repo.saveapis.com/repository/nuget-public/" --name "SaveApis" --username "${{ secrets.REPO_USER }}" --password "${{ secrets.REPO_PASSWORD }}" --store-password-in-clear-text
       - name: Pack
         run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifacts
       - name: List Packages
         run: ls -la ./artifacts
-# TODO - Add Nuget Push
+      - name: Push
+        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate
