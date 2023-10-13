@@ -1,0 +1,33 @@
+name: CD (BaseWebApi)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - BaseWebApi/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Cache
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Add Nuget Source
+        run: dotnet nuget add source "https://repo.saveapis.com/repository/nuget-public/ --name "SaveApis" --username "${{ secrets.REPO_USER }}" --password "${{ secrets.REPO_PASSWORD }}"
+      - name: Pack
+        run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifacts
+      - name: List Packages
+        run: ls -la ./artifacts
+# TODO - Add Nuget Push
