@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Add Nuget Source
-        run: dotnet nuget add source "https://repo.saveapis.com/repository/nuget-public/ --name "SaveApis" --username "${{ secrets.REPO_USER }}" --password "${{ secrets.REPO_PASSWORD }}"
+        run: dotnet nuget add source "https://repo.saveapis.com/repository/nuget-public/" --name "SaveApis" --username "${{ secrets.REPO_USER }}" --password "${{ secrets.REPO_PASSWORD }}"
       - name: Pack
         run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifacts
       - name: List Packages
