@@ -35,7 +35,5 @@ jobs:
         run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifacts
       - name: List Packages
         run: ls -la ./artifacts
-      - name: Set API-Key
-        run: dotnet nuget setapikey "${{ secrets.REPO_API_KEY }}" --source "SaveApis"
       - name: Push
-        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate
+        run: dotnet nuget push ./artifacts/*.nupkg --source "SaveApis" --skip-duplicate --api-key "${{ secrets.REPO_API_KEY }}"
