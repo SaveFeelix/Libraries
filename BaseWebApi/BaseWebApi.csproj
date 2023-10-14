@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>BaseWebApi</Title>
     <Authors>SaveApis</Authors>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <PackageProjectUrl>https://github.com/SaveFeelix/Libraries</PackageProjectUrl>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/SaveFeelix/Libraries</RepositoryUrl>
