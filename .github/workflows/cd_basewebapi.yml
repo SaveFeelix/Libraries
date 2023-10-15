@@ -22,7 +22,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Publish
-        uses: chenryhabana205/publish-nuget@v1
+        uses: chenryhabana205/publish-nuget@v8
         with:
           PROJECT_FILE_PATH: BaseWebApi/BaseWebApi.csproj
           PACKAGE_NAME: BaseWebApi

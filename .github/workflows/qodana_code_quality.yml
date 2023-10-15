@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - development
+    paths-ignore:
+      - '.github/workflows/**'
   push:
     branches:
       - development
+    paths-ignore:
+      - '.github/workflows/**'
 
 jobs:
   qodana:
