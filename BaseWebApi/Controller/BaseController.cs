@@ -18,8 +18,8 @@ namespace BaseWebApi.Controller
             Logger = logger;
         }
 
-        protected TDatabase Database { get; }
-        protected ILogger<TController> Logger { get; }
+        public TDatabase Database { get; }
+        public ILogger<TController> Logger { get; }
 
     }
 }
