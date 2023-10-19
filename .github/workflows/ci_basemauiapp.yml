@@ -35,9 +35,9 @@ jobs:
           key: ${{ runner.os }}-BaseMauiApp-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-BaseMauiApp-
-      - name: Install Workloads
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: dotnet workload install maui-tizen android
+      #- name: Install Workloads
+      #  if: steps.cache.outputs.cache-hit != 'true'
+      #  run: dotnet workload install maui-tizen android
       - name: Restore project
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore BaseMauiApp/BaseMauiApp.csproj
