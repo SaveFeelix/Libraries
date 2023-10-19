@@ -37,6 +37,6 @@ jobs:
             ${{ runner.os }}-BaseWebApi-
       - name: Restore project
         if: steps.cache.outputs.cache-hit != 'true'
-        run: dotnet restore
+        run: dotnet restore BaseWebApi/BaseWebApi.csproj
       - name: Build project (${{ matrix.config }})
         run: dotnet build BaseWebApi/BaseWebApi.csproj --configuration ${{ matrix.config }}
