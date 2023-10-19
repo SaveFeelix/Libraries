@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-BaseMauiApp-
       - name: Install Workloads
         if: steps.cache.outputs.cache-hit != 'true'
-        run: dotnet workload install maui-tizen android ios
+        run: dotnet workload install maui-tizen android
       - name: Restore project
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore BaseMauiApp/BaseMauiApp.csproj
