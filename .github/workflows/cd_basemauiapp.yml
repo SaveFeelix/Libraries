@@ -35,7 +35,7 @@ jobs:
       - name: List
         run: dir artifact
       - name: Publish
-        run: dotnet nuget push artifact/*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
+        run: dotnet nuget push artifact/**.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
       #- name: Publish
       #  uses: sonatype-nexus-community/nexus-repo-github-action@master
       #  with:
