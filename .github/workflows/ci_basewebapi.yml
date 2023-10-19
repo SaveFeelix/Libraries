@@ -34,7 +34,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-BaseWebApi-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
+            ${{ runner.os }}-BaseWebApi-
       - name: Restore project
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore
