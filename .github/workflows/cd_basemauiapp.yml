@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Cache
@@ -21,13 +21,6 @@ jobs:
           key: ${{ runner.os }}-BaseMauiApp-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-BaseMauiApp-
-      #- name: Publish
-      #  uses: chenryhabana205/publish-nuget@v8
-      #  with:
-      #    PROJECT_FILE_PATH: BaseMauiApp/BaseMauiApp.csproj
-      #    PACKAGE_NAME: BasesMauiApp
-      #    NUGET_KEY: ${{ secrets.REPO_API_KEY }}
-      #    NUGET_SOURCE: https://repo.saveapis.com/repository/nuget-public/
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
@@ -40,7 +33,7 @@ jobs:
       - name: Pack
         run: dotnet pack BaseMauiApp/BaseMauiApp.csproj -c Release -o ./artifact --no-build
       - name: publish
-        run: dotnet nuget push ./artifact/*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
+        run: dotnet nuget push ./artifact/BaseMauiApp*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
       #- name: Publish
       #  uses: sonatype-nexus-community/nexus-repo-github-action@master
       #  with:
