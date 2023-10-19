@@ -18,16 +18,30 @@ jobs:
         id: cache
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          key: ${{ runner.os }}-BaseWebApi-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
-      - name: Publish
-        uses: chenryhabana205/publish-nuget@v8
+            ${{ runner.os }}-BaseWebApi-
+      #- name: Publish
+      #  uses: chenryhabana205/publish-nuget@v8
+      #  with:
+      #    PROJECT_FILE_PATH: BaseWebApi/BaseWebApi.csproj
+      #    PACKAGE_NAME: BaseWebApi
+      #    NUGET_KEY: ${{ secrets.REPO_API_KEY }}
+      #    NUGET_SOURCE: https://repo.saveapis.com/repository/nuget-public/
+          
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
         with:
-          PROJECT_FILE_PATH: BaseWebApi/BaseWebApi.csproj
-          PACKAGE_NAME: BaseWebApi
-          NUGET_KEY: ${{ secrets.REPO_API_KEY }}
-          NUGET_SOURCE: https://repo.saveapis.com/repository/nuget-public/
+          dotnet-version: 7.0.x
+      - name: Restore
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: dotnet restore BaseWebApi/BaseWebApi.csproj
+      - name: Build
+        run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
+      - name: Pack
+        run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifact --no-build
+      - name: publish
+        run: dotnet nuget push ./artifact/*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
       #- name: Setup .NET Core
       #  uses: actions/setup-dotnet@v3
       #  with:
