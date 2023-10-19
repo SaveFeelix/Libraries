@@ -1,16 +1,16 @@
-name: CD (BaseWebApi)
+name: CD (BaseMauiApp)
 on:
   workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - BaseWebApi/**
-      - .github/workflows/cd_basewebapi**
+      - BaseMauiApp/**
+      - .github/workflows/cd_basemauiapp**
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Cache
@@ -18,42 +18,29 @@ jobs:
         id: cache
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-BaseWebApi-${{ hashFiles('**/*.csproj') }}
+          key: ${{ runner.os }}-BaseMauiApp-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-BaseWebApi-
+            ${{ runner.os }}-BaseMauiApp-
       #- name: Publish
       #  uses: chenryhabana205/publish-nuget@v8
       #  with:
-      #    PROJECT_FILE_PATH: BaseWebApi/BaseWebApi.csproj
-      #    PACKAGE_NAME: BaseWebApi
+      #    PROJECT_FILE_PATH: BaseMauiApp/BaseMauiApp.csproj
+      #    PACKAGE_NAME: BasesMauiApp
       #    NUGET_KEY: ${{ secrets.REPO_API_KEY }}
       #    NUGET_SOURCE: https://repo.saveapis.com/repository/nuget-public/
-          
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
       - name: Restore
         if: steps.cache.outputs.cache-hit != 'true'
-        run: dotnet restore BaseWebApi/BaseWebApi.csproj
+        run: dotnet restore BaseMauiApp/BaseMauiApp.csproj
       - name: Build
-        run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
+        run: dotnet build BaseMauiApp/BaseMauiApp.csproj -c Release
       - name: Pack
-        run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifact --no-build
+        run: dotnet pack BaseMauiApp/BaseMauiApp.csproj -c Release -o ./artifact --no-build
       - name: publish
         run: dotnet nuget push ./artifact/*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
-      #- name: Setup .NET Core
-      #  uses: actions/setup-dotnet@v3
-      #  with:
-      #    dotnet-version: 7.0.x
-      #- name: Restore
-      #  if: steps.cache.outputs.cache-hit != 'true'
-      #  run: dotnet restore BaseWebApi/BaseWebApi.csproj
-      #- name: Build
-      #  run: dotnet build BaseWebApi/BaseWebApi.csproj -c Release
-      #- name: Pack
-      #  run: dotnet pack BaseWebApi/BaseWebApi.csproj -c Release -o ./artifact --no-build
-      #
       #- name: Publish
       #  uses: sonatype-nexus-community/nexus-repo-github-action@master
       #  with:
