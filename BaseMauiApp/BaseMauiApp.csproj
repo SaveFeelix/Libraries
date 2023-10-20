@@ -26,6 +26,7 @@
         <FileVersion>1.0.0</FileVersion>
         <Version>1.0.0</Version>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</PackageLicenseUrl>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
