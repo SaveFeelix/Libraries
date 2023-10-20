@@ -22,10 +22,11 @@
         <PackageProjectUrl>https://github.com/SaveFeelix/Libraries</PackageProjectUrl>
         <RepositoryType>GitHub</RepositoryType>
         <RepositoryUrl>https://github.com/SaveFeelix/Libraries</RepositoryUrl>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
-        <Version>1.0.0</Version>
+        <AssemblyVersion>1.1.0</AssemblyVersion>
+        <FileVersion>1.1.0</FileVersion>
+        <Version>1.1.0</Version>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</PackageLicenseUrl>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,6 +34,15 @@
         <Folder Include="Platforms\iOS\"/>
         <Folder Include="Platforms\MacCatalyst\"/>
         <Folder Include="Platforms\Windows\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
+        <PackageReference Include="RestSharp" Version="110.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BaseWebApi\BaseWebApi.csproj"/>
     </ItemGroup>
 
 </Project>
