@@ -1,5 +1,5 @@
+using BaseMauiApp.Result;
 using BaseMauiApp.Types;
-using BaseWebApi.Result;
 using RestSharp;
 using RestSharp.Authenticators;
 
