@@ -22,9 +22,9 @@
         <PackageProjectUrl>https://github.com/SaveFeelix/Libraries</PackageProjectUrl>
         <RepositoryType>GitHub</RepositoryType>
         <RepositoryUrl>https://github.com/SaveFeelix/Libraries</RepositoryUrl>
-        <AssemblyVersion>1.1.0</AssemblyVersion>
-        <FileVersion>1.1.0</FileVersion>
-        <Version>1.1.0</Version>
+        <AssemblyVersion>1.1.1</AssemblyVersion>
+        <FileVersion>1.1.1</FileVersion>
+        <Version>1.1.1</Version>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.txt</PackageLicenseUrl>
         <Nullable>enable</Nullable>
     </PropertyGroup>
