@@ -13,6 +13,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
       - name: Cache
         uses: actions/cache@v3
         id: cache
@@ -21,10 +25,6 @@ jobs:
           key: ${{ runner.os }}-BaseMauiApp-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-BaseMauiApp-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7.0.x
       - name: Restore
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore BaseMauiApp/BaseMauiApp.csproj
@@ -36,12 +36,3 @@ jobs:
         run: dir artifact
       - name: Publish
         run: dotnet nuget push artifact/**.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
-      #- name: Publish
-      #  uses: sonatype-nexus-community/nexus-repo-github-action@master
-      #  with:
-      #    serverUrl: https://repo.saveapis.com/
-      #    username: ${{ secrets.REPO_USERNAME }}
-      #    password: ${{ secrets.REPO_PASSWORD }}
-      #    format: nuget
-      #    repository: nuget-public
-      #    filename: ./artifact/*.nupkg
