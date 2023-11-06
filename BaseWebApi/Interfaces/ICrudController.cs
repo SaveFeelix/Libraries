@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BaseWebApi.Interfaces
 {
-    public interface ICrudController<TGetDto, in TCreateDto, in TUpdateDto>
+    public interface ICrudController<TAllResult, TIdResult, TCreateResult, TUpdateResult, TDeleteResult, in TCreateDto,
+        in TUpdateDto>
     {
-        Task<ActionResult<BaseResult<List<TGetDto>>>> All();
-        Task<ActionResult<BaseResult<TGetDto>>> ById(int id);
-        Task<ActionResult<BaseResult<TGetDto>>> Create(TCreateDto dto);
-        Task<ActionResult<BaseResult<TGetDto>>> Update(int id, TUpdateDto dto);
-        Task<ActionResult<BaseResult>> Delete(int id);
+        Task<ActionResult<BaseResult<TAllResult>>> All();
+        Task<ActionResult<BaseResult<TIdResult>>> ById(int id);
+        Task<ActionResult<BaseResult<TCreateResult>>> Create(TCreateDto dto);
+        Task<ActionResult<BaseResult<TUpdateResult>>> Update(int id, TUpdateDto dto);
+        Task<ActionResult<BaseResult<TDeleteResult>>> Delete(int id);
     }
 }
