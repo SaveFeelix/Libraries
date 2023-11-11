@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Net.Mime;
+#if !DEBUG
+using Microsoft.AspNetCore.Authorization;
+#endif
 
 namespace BaseWebApi.Controller
 {
+#if !DEBUG
     [Authorize]
+#endif
     [ApiController]
     [Route("Global/[controller]/[action]")]
     [Produces(MediaTypeNames.Application.Json)]
