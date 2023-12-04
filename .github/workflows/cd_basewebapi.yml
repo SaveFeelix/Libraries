@@ -30,7 +30,7 @@ jobs:
       #    NUGET_SOURCE: https://repo.saveapis.com/repository/nuget-public/
           
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
       - name: Restore
@@ -43,7 +43,7 @@ jobs:
       - name: publish
         run: dotnet nuget push ./artifact/*.nupkg --source https://repo.saveapis.com/repository/nuget-public/ --api-key ${{ secrets.REPO_API_KEY }}
       #- name: Setup .NET Core
-      #  uses: actions/setup-dotnet@v3
+      #  uses: actions/setup-dotnet@v4
       #  with:
       #    dotnet-version: 7.0.x
       #- name: Restore
